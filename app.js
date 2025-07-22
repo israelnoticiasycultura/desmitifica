@@ -2,10 +2,18 @@
 let preguntas = [];
 let fuse;
 
+// Función para ordenar aleatoriamente el array de preguntas
+function ordenarPreguntasAleatoriamente(preguntas) {
+  return preguntas.sort(() => Math.random() - 0.5);
+}
+
 async function cargarPreguntas() {
   const res = await fetch('preguntas.json');
   preguntas = await res.json();
 
+  // Ordenar las preguntas de forma aleatoria
+  preguntas = ordenarPreguntasAleatoriamente(preguntas);
+  
   fuse = new Fuse(preguntas, {
     keys: ['titulo', 'respuesta', 'tags'],
     threshold: 0.4,
@@ -69,20 +77,20 @@ if (p.video) {
     alert('¡Listo! Ahora puedes pegar la pregunta, respuesta y enlaces de utilidad en cualquier destino y difundir la verdad');
   };
 
-  // Crear botón "Copiar enlace"
-  const copyBtn = document.createElement('button');
-  copyBtn.innerHTML = '🔗 <strong>Copiar enlace</strong>';
-  copyBtn.className = 'bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600';
-  copyBtn.onclick = () => {
-    const url = window.location.href.split('#')[0] + '#p' + i;
-    navigator.clipboard.writeText(url);
-    alert('¡Listo! Ahora puedes pegar el enlace en tus redes y difundir la verdad.');
-  };
+  // // Crear botón "Copiar enlace"
+  // const copyBtn = document.createElement('button');
+  // copyBtn.innerHTML = '🔗 <strong>Copiar enlace</strong>';
+  // copyBtn.className = 'bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600';
+  // copyBtn.onclick = () => {
+  //   const url = window.location.href.split('#')[0] + '#p' + i;
+  //   navigator.clipboard.writeText(url);
+  //   alert('¡Listo! Ahora puedes pegar el enlace en tus redes y difundir la verdad.');
+  // };
 
   // Crear un contenedor para los botones
   const botonesContainer = document.createElement('div');
   botonesContainer.className = 'flex space-x-2'; // "flex" para alinearlos horizontalmente, "space-x-2" para el espacio entre ellos
-  botonesContainer.appendChild(copyBtn);
+  // botonesContainer.appendChild(copyBtn);
   botonesContainer.appendChild(copiarTodoBtn);
 
   // Añadir el enlace y los botones al contenedor
