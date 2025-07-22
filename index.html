@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Desmitificando - Preguntas y Respuestas</title>
+  <!-- Tailwind CSS desde CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fuse.js para búsqueda -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+  <header class="bg-blue-600 text-white p-4 shadow-md text-center">
+  <h1 class="text-2xl font-bold">Desmitificando</h1>
+  <p class="text-sm mt-1">Preguntas y respuestas claras, videos y enlaces útiles</p>
+  <!-- <p class="text-sm mt-1">Proyecto educativo de <strong>Israel Noticias y Cultura</strong> y <strong>Ariel Frumkin</strong></p> -->
+  </header>
+
+  <main class="flex-grow container mx-auto p-4 max-w-3xl">
+    
+    <!-- Buscador -->
+    <input
+      id="busqueda"
+      type="text"
+      placeholder="Buscar preguntas..."
+      class="w-full p-2 border rounded mb-6 focus:outline-blue-500"
+    />
+
+    <!-- Contenedor de preguntas -->
+    <div id="preguntas-container" class="space-y-6">
+      <!-- Aquí se cargan las preguntas con JS -->
+    </div>
+  </main>
+
+  <footer class="text-center p-4 text-sm text-gray-500">
+    &copy; 2025 Desmitificando - Un proyecto educativo para difundir la verdad.
+  </footer>
+
+  <!-- Script principal -->
+  <script src="app.js"></script>
+</body>
+</html>
