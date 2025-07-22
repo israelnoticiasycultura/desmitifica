@@ -111,14 +111,25 @@ if (p.video) {
     compartirTexto.className = 'font-semibold mt-4 mb-2 text-gray-700';
     div.appendChild(compartirTexto);
 
+    // const fbBtn = document.createElement('button');
+    // fbBtn.innerHTML = `
+    //   <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+    //     <path d="M22.675 0H1.325C.594 0 0 .594 0 1.325v21.351C0 23.406.594 24 1.325 24h11.497v-9.284H9.746V12h3.076V9.285c0-3.075 1.829-4.755 4.552-4.755 1.325 0 2.687.099 3.019.146v3.517l-2.04.001c-1.602 0-1.922.758-1.922 1.847v2.412h3.844l-.498 3.765h-3.346V24h6.56c.73 0 1.325-.594 1.325-1.325V1.325C24 .594 23.406 0 22.675 0z"/>
+    //   </svg>
+    //   <strong>Facebook</strong>
+    // `.replace(/\n/g, '').replace(/\r/g, '').trim();
+
+    // fbBtn.className = 'bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-800 inline-flex items-center';
+    // fbBtn.onclick = () => {
+    //   const url = window.location.href.split('#')[0] + '#p' + i;
+    //   const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    //   window.open(fbShare, '_blank', 'width=600,height=400');
+    // };
+    //botonesDiv.appendChild(fbBtn);
     const fbBtn = document.createElement('button');
     fbBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M22.675 0H1.325C.594 0 0 .594 0 1.325v21.351C0 23.406.594 24 1.325 24h11.497v-9.284H9.746V12h3.076V9.285c0-3.075 1.829-4.755 4.552-4.755 1.325 0 2.687.099 3.019.146v3.517l-2.04.001c-1.602 0-1.922.758-1.922 1.847v2.412h3.844l-.498 3.765h-3.346V24h6.56c.73 0 1.325-.594 1.325-1.325V1.325C24 .594 23.406 0 22.675 0z"/>
-      </svg>
-      <strong>Facebook</strong>
-    `.replace(/\n/g, '').replace(/\r/g, '').trim();
-
+      <i class="fab fa-facebook-f" style="margin-right: 8px;"></i> <strong>Facebook</strong>
+    `;
     fbBtn.className = 'bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-800 inline-flex items-center';
     fbBtn.onclick = () => {
       const url = window.location.href.split('#')[0] + '#p' + i;
@@ -127,14 +138,26 @@ if (p.video) {
     };
     botonesDiv.appendChild(fbBtn);
 
+
+  // const waBtn = document.createElement('button');
+  // waBtn.innerHTML = `
+  //   <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+  //     <path d="M20.52 3.48A11.73 11.73 0 0 0 12.07.25 11.85 11.85 0 0 0 .22 12a11.74 11.74 0 0 0 1.59 5.84L0 24l6.4-1.67a11.76 11.76 0 0 0 5.67 1.45h.05a11.87 11.87 0 0 0 8.4-20.3Z"/>
+  //   </svg>
+  //   <strong>WhatsApp</strong>
+  // `.replace(/\n/g, '').replace(/\r/g, '').trim();
+
+  // waBtn.className = 'bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 inline-flex items-center';
+  // waBtn.onclick = () => {
+  //   const url = window.location.href.split('#')[0] + '#p' + i;
+  //   const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`;
+  //   window.open(waShare, '_blank');
+  // };
+  // botonesDiv.appendChild(waBtn);
   const waBtn = document.createElement('button');
   waBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M20.52 3.48A11.73 11.73 0 0 0 12.07.25 11.85 11.85 0 0 0 .22 12a11.74 11.74 0 0 0 1.59 5.84L0 24l6.4-1.67a11.76 11.76 0 0 0 5.67 1.45h.05a11.87 11.87 0 0 0 8.4-20.3Z"/>
-    </svg>
-    <strong>WhatsApp</strong>
-  `.replace(/\n/g, '').replace(/\r/g, '').trim();
-
+    <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> <strong>WhatsApp</strong>
+  `;
   waBtn.className = 'bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 inline-flex items-center';
   waBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
@@ -146,9 +169,21 @@ if (p.video) {
 
 
   // Telegram
+  // const tgBtn = document.createElement('button');
+  // tgBtn.innerHTML = '🚀 <strong>Telegram</strong>';
+  // tgBtn.className = 'bg-sky-500 text-white px-2 py-1 rounded hover:bg-sky-600';
+  // tgBtn.onclick = () => {
+  //   const url = window.location.href.split('#')[0] + '#p' + i;
+  //   const tgShare = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
+  //   window.open(tgShare, '_blank');
+  // };
+  // botonesDiv.appendChild(tgBtn);
+
   const tgBtn = document.createElement('button');
-  tgBtn.innerHTML = '🚀 <strong>Telegram</strong>';
-  tgBtn.className = 'bg-sky-500 text-white px-2 py-1 rounded hover:bg-sky-600';
+  tgBtn.innerHTML = `
+    <i class="fab fa-telegram-plane" style="margin-right: 8px;"></i> <strong>Telegram</strong>
+  `;
+  tgBtn.className = 'bg-sky-500 text-white px-2 py-1 rounded hover:bg-sky-600 inline-flex items-center';
   tgBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
     const tgShare = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
@@ -156,10 +191,23 @@ if (p.video) {
   };
   botonesDiv.appendChild(tgBtn);
 
+
+
   // Twitter
+  // const twBtn = document.createElement('button');
+  // twBtn.innerHTML = '🐦 <strong>X</strong>';
+  // twBtn.className = 'bg-blue-400 text-white px-2 py-1 rounded hover:bg-blue-500';
+  // twBtn.onclick = () => {
+  //   const url = window.location.href.split('#')[0] + '#p' + i;
+  //   const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+  //   window.open(twShare, '_blank');
+  // };
+  // botonesDiv.appendChild(twBtn);
   const twBtn = document.createElement('button');
-  twBtn.innerHTML = '🐦 <strong>X</strong>';
-  twBtn.className = 'bg-blue-400 text-white px-2 py-1 rounded hover:bg-blue-500';
+  twBtn.innerHTML = `
+    <i class="fab fa-twitter" style="margin-right: 8px;"></i> <strong>Twitter</strong>
+  `;
+  twBtn.className = 'bg-blue-400 text-white px-2 py-1 rounded hover:bg-blue-500 inline-flex items-center';
   twBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
     const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
@@ -167,10 +215,22 @@ if (p.video) {
   };
   botonesDiv.appendChild(twBtn);
 
+
   // Messenger
+  // const msBtn = document.createElement('button');
+  // msBtn.innerHTML = '💬 <strong>Messenger</strong>';
+  // msBtn.className = 'bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700';
+  // msBtn.onclick = () => {
+  //   const url = window.location.href.split('#')[0] + '#p' + i;
+  //   const msShare = `fb-messenger://share?link=${encodeURIComponent(url)}`;
+  //   window.open(msShare, '_blank');
+  // };
+  // botonesDiv.appendChild(msBtn);
   const msBtn = document.createElement('button');
-  msBtn.innerHTML = '💬 <strong>Messenger</strong>';
-  msBtn.className = 'bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700';
+  msBtn.innerHTML = `
+    <i class="fab fa-facebook-messenger" style="margin-right: 8px;"></i> <strong>Messenger</strong>
+  `;
+  msBtn.className = 'bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 inline-flex items-center';
   msBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
     const msShare = `fb-messenger://share?link=${encodeURIComponent(url)}`;
