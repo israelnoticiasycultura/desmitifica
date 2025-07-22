@@ -191,31 +191,6 @@ if (p.video) {
   };
   botonesDiv.appendChild(tgBtn);
 
-
-
-  // Twitter
-  // const twBtn = document.createElement('button');
-  // twBtn.innerHTML = '🐦 <strong>X</strong>';
-  // twBtn.className = 'bg-blue-400 text-white px-2 py-1 rounded hover:bg-blue-500';
-  // twBtn.onclick = () => {
-  //   const url = window.location.href.split('#')[0] + '#p' + i;
-  //   const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-  //   window.open(twShare, '_blank');
-  // };
-  // botonesDiv.appendChild(twBtn);
-  const twBtn = document.createElement('button');
-  twBtn.innerHTML = `
-    <i class="fab fa-twitter" style="margin-right: 8px;"></i> <strong>Twitter</strong>
-  `;
-  twBtn.className = 'bg-blue-400 text-white px-2 py-1 rounded hover:bg-blue-500 inline-flex items-center';
-  twBtn.onclick = () => {
-    const url = window.location.href.split('#')[0] + '#p' + i;
-    const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(twShare, '_blank');
-  };
-  botonesDiv.appendChild(twBtn);
-
-
   // Messenger
   // const msBtn = document.createElement('button');
   // msBtn.innerHTML = '💬 <strong>Messenger</strong>';
@@ -238,6 +213,27 @@ if (p.video) {
   };
   botonesDiv.appendChild(msBtn);
 
+  // Twitter
+  // const twBtn = document.createElement('button');
+  // twBtn.innerHTML = '🐦 <strong>X</strong>';
+  // twBtn.className = 'bg-blue-400 text-white px-2 py-1 rounded hover:bg-blue-500';
+  // twBtn.onclick = () => {
+  //   const url = window.location.href.split('#')[0] + '#p' + i;
+  //   const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+  //   window.open(twShare, '_blank');
+  // };
+  // botonesDiv.appendChild(twBtn);
+  const twBtn = document.createElement('button');
+  twBtn.innerHTML = `
+    <i class="fab fa-twitter" style="margin-right: 8px;"></i> <strong>X</strong>
+  `;
+  twBtn.className = 'bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700 inline-flex items-center'; // Fondo gris y texto blanco
+  twBtn.onclick = () => {
+    const url = window.location.href.split('#')[0] + '#p' + i;
+    const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    window.open(twShare, '_blank');
+  };
+  botonesDiv.appendChild(twBtn);
 
 div.appendChild(botonesDiv);
 
