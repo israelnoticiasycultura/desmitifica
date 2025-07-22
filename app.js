@@ -104,7 +104,7 @@ if (p.video) {
 
     // Contenedor botones compartir y copiar link
     //const botonesDiv = document.createElement('div');
-    botonesDiv.className = 'mt-3 space-x-3 overflow-x-auto whitespace-nowrap pb-2';
+    botonesDiv.className = 'mt-3 space-x-3 flex items-center justify-start';
 
     const compartirTexto = document.createElement('p');
     compartirTexto.textContent = 'Compártelo en tus redes:';
