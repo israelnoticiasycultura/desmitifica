@@ -45,6 +45,19 @@ function mostrarPreguntas(lista) {
 const botonesDiv = document.createElement('div');
 botonesDiv.className = 'mt-3 space-x-3';
 
+
+function generarTextoArgumento(p, i) {
+  const html = marked.parse(p.respuesta);
+
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = html;
+  const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
+
+  const url = window.location.href.split('#')[0];
+  return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n🔗Directorio de preguntas:\n ${url}#p${i}`;
+}
+
+
 // Si hay video, mostrar enlace y botón "Copiar todo"
 if (p.video) {
   const videoWrapper = document.createElement('div');
@@ -60,21 +73,28 @@ if (p.video) {
   const copiarTodoBtn = document.createElement('button');
   copiarTodoBtn.textContent = '📋 Copiar argumento';
   copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700';
+  // copiarTodoBtn.onclick = () => {
+  //   // Convierte Markdown a HTML
+  //   const html = marked.parse(p.respuesta);
+
+  //   // Crea un elemento temporal para extraer solo texto sin etiquetas
+  //   const tempDiv = document.createElement('div');
+  //   tempDiv.innerHTML = html;
+
+  //   // Obtén solo el texto plano, sin etiquetas ni símbolos markdown
+  //   const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
+
+  //   //const url = window.location.href.split('#')[0] + '#p' + i;
+  //   const url = window.location.href.split('#')[0];
+  //   const texto = `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo: ${p.video}\n\n🔗Directorio de preguntas:\n ${url}`;
+  //   navigator.clipboard.writeText(texto);
+  //   alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
+  // };
+
   copiarTodoBtn.onclick = () => {
-    // Convierte Markdown a HTML
-    const html = marked.parse(p.respuesta);
-
-    // Crea un elemento temporal para extraer solo texto sin etiquetas
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-
-    // Obtén solo el texto plano, sin etiquetas ni símbolos markdown
-    const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
-
-    const url = window.location.href.split('#')[0] + '#p' + i;
-    const texto = `❓ ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo: ${p.video}\n\n🔗Enlace al directorio de preguntas:\n ${url}`;
+    const texto = generarTextoArgumento(p, i);
     navigator.clipboard.writeText(texto);
-    alert('¡Listo! Ahora puedes pegar la pregunta, respuesta y enlaces de utilidad en cualquier destino y difundir la verdad');
+    alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
   };
 
   // // Crear botón "Copiar enlace"
@@ -119,7 +139,8 @@ if (p.video) {
     fbBtn.className = 'bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-800 inline-flex items-center';
     fbBtn.onclick = () => {
       const url = window.location.href.split('#')[0] + '#p' + i;
-      const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+      //const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+      const fbShare = `https://www.facebook.com/sharer/sharer.php?u=&quote=${encodeURIComponent(generarTextoArgumento(p, i))}`;
       window.open(fbShare, '_blank', 'width=600,height=400');
     };
     botonesDiv.appendChild(fbBtn);
@@ -131,7 +152,8 @@ if (p.video) {
   waBtn.className = 'bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 inline-flex items-center';
   waBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
-    const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`;
+    //const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`;
+    const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
     window.open(waShare, '_blank');
   };
   botonesDiv.appendChild(waBtn);
@@ -143,7 +165,8 @@ if (p.video) {
   tgBtn.className = 'bg-sky-500 text-white px-2 py-1 rounded hover:bg-sky-600 inline-flex items-center';
   tgBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
-    const tgShare = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
+    //const tgShare = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
+    const tgShare = `https://t.me/share/url?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
     window.open(tgShare, '_blank');
   };
   botonesDiv.appendChild(tgBtn);
@@ -155,7 +178,8 @@ if (p.video) {
   msBtn.className = 'bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 inline-flex items-center';
   msBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
-    const msShare = `fb-messenger://share?link=${encodeURIComponent(url)}`;
+    // const msShare = `fb-messenger://share?link=${encodeURIComponent(url)}`;
+    const msShare = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(window.location.href)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(window.location.href)}`;
     window.open(msShare, '_blank');
   };
   botonesDiv.appendChild(msBtn);
@@ -167,7 +191,8 @@ if (p.video) {
   twBtn.className = 'bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700 inline-flex items-center'; // Fondo gris y texto blanco
   twBtn.onclick = () => {
     const url = window.location.href.split('#')[0] + '#p' + i;
-    const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    //const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    const twShare = `https://twitter.com/intent/tweet?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
     window.open(twShare, '_blank');
   };
   botonesDiv.appendChild(twBtn);
