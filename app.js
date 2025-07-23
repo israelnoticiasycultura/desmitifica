@@ -119,20 +119,6 @@ if (p.video) {
   };
   botonesDiv.appendChild(waBtn);
 
-  const fbBtn = document.createElement('button');
-  fbBtn.innerHTML = `
-      <i class="fab fa-facebook-f" style="margin-right: 8px;"></i> <strong>Facebook</strong>
-    `;
-  fbBtn.className = 'bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-800 inline-flex items-center';
-  fbBtn.onclick = () => {
-    const url = window.location.href.split('#')[0];
-    const texto = generarTextoArgumento(p, i);
-    const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    //const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(texto)}`;
-    window.open(fbShare, '_blank', 'width=600,height=400');
-  };
-  botonesDiv.appendChild(fbBtn);
-
   const tgBtn = document.createElement('button');
   tgBtn.innerHTML = `
     <i class="fab fa-telegram-plane" style="margin-right: 8px;"></i> <strong>Telegram</strong>
@@ -152,6 +138,19 @@ if (p.video) {
   };
   botonesDiv.appendChild(tgBtn);
 
+  const twBtn = document.createElement('button');
+  twBtn.innerHTML = `
+    <i class="fab fa-twitter" style="margin-right: 8px;"></i> <strong>X</strong>
+  `;
+  twBtn.className = 'bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700 inline-flex items-center'; // Fondo gris y texto blanco
+  twBtn.onclick = () => {
+    const url = window.location.href.split('#')[0];
+    //const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    const twShare = `https://twitter.com/intent/tweet?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
+    window.open(twShare, '_blank');
+  };
+  botonesDiv.appendChild(twBtn);
+
   const msBtn = document.createElement('button');
   msBtn.innerHTML = `
     <i class="fab fa-facebook-messenger" style="margin-right: 8px;"></i> <strong>Messenger</strong>
@@ -167,18 +166,19 @@ if (p.video) {
   };
   botonesDiv.appendChild(msBtn);
 
-  const twBtn = document.createElement('button');
-  twBtn.innerHTML = `
-    <i class="fab fa-twitter" style="margin-right: 8px;"></i> <strong>X</strong>
-  `;
-  twBtn.className = 'bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700 inline-flex items-center'; // Fondo gris y texto blanco
-  twBtn.onclick = () => {
+  const fbBtn = document.createElement('button');
+  fbBtn.innerHTML = `
+      <i class="fab fa-facebook-f" style="margin-right: 8px;"></i> <strong>Facebook</strong>
+    `;
+  fbBtn.className = 'bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-800 inline-flex items-center';
+  fbBtn.onclick = () => {
     const url = window.location.href.split('#')[0];
-    //const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    const twShare = `https://twitter.com/intent/tweet?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
-    window.open(twShare, '_blank');
+    const texto = generarTextoArgumento(p, i);
+    const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    //const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(texto)}`;
+    window.open(fbShare, '_blank', 'width=600,height=400');
   };
-  botonesDiv.appendChild(twBtn);
+  botonesDiv.appendChild(fbBtn);
 
 div.appendChild(botonesDiv);
 
