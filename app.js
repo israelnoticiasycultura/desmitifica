@@ -127,8 +127,8 @@ if (p.video) {
   fbBtn.onclick = () => {
     const url = window.location.href.split('#')[0];
     const texto = generarTextoArgumento(p, i);
-      //const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(texto)}`;
+    const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    //const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(texto)}`;
     window.open(fbShare, '_blank', 'width=600,height=400');
   };
   botonesDiv.appendChild(fbBtn);
@@ -161,8 +161,8 @@ if (p.video) {
     const url = window.location.href.split('#')[0];
     const texto = generarTextoArgumento(p, i);
     // const msShare = `fb-messenger://share?link=${encodeURIComponent(url)}`;
-    //const msShare = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(window.location.href)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(window.location.href)}`;
-    const msShare = `https://www.facebook.com/dialog/send?app_id=TU_APP_ID&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`;
+    const msShare = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(window.location.href)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(window.location.href)}`;
+    //const msShare = `https://www.facebook.com/dialog/send?app_id=TU_APP_ID&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`;
     window.open(msShare, '_blank');
   };
   botonesDiv.appendChild(msBtn);
