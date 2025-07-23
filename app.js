@@ -73,39 +73,13 @@ if (p.video) {
   const copiarTodoBtn = document.createElement('button');
   copiarTodoBtn.textContent = '📋 Copiar argumento';
   copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700';
-  // copiarTodoBtn.onclick = () => {
-  //   // Convierte Markdown a HTML
-  //   const html = marked.parse(p.respuesta);
 
-  //   // Crea un elemento temporal para extraer solo texto sin etiquetas
-  //   const tempDiv = document.createElement('div');
-  //   tempDiv.innerHTML = html;
-
-  //   // Obtén solo el texto plano, sin etiquetas ni símbolos markdown
-  //   const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
-
-  //   //const url = window.location.href.split('#')[0] + '#p' + i;
-  //   const url = window.location.href.split('#')[0];
-  //   const texto = `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo: ${p.video}\n\n🔗Directorio de preguntas:\n ${url}`;
-  //   navigator.clipboard.writeText(texto);
-  //   alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
-  // };
 
   copiarTodoBtn.onclick = () => {
     const texto = generarTextoArgumento(p, i);
     navigator.clipboard.writeText(texto);
     alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
   };
-
-  // // Crear botón "Copiar enlace"
-  // const copyBtn = document.createElement('button');
-  // copyBtn.innerHTML = '🔗 <strong>Copiar enlace</strong>';
-  // copyBtn.className = 'bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600';
-  // copyBtn.onclick = () => {
-  //   const url = window.location.href.split('#')[0] + '#p' + i;
-  //   navigator.clipboard.writeText(url);
-  //   alert('¡Listo! Ahora puedes pegar el enlace en tus redes y difundir la verdad.');
-  // };
 
   // Crear un contenedor para los botones
   const botonesContainer = document.createElement('div');
@@ -132,31 +106,32 @@ if (p.video) {
     compartirTexto.className = 'font-semibold mt-4 mb-2 text-gray-700';
     div.appendChild(compartirTexto);
 
-    const fbBtn = document.createElement('button');
-    fbBtn.innerHTML = `
-      <i class="fab fa-facebook-f" style="margin-right: 8px;"></i> <strong>Facebook</strong>
-    `;
-    fbBtn.className = 'bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-800 inline-flex items-center';
-    fbBtn.onclick = () => {
-      const url = window.location.href.split('#')[0] + '#p' + i;
-      //const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-      const fbShare = `https://www.facebook.com/sharer/sharer.php?u=&quote=${encodeURIComponent(generarTextoArgumento(p, i))}`;
-      window.open(fbShare, '_blank', 'width=600,height=400');
-    };
-    botonesDiv.appendChild(fbBtn);
-
   const waBtn = document.createElement('button');
   waBtn.innerHTML = `
     <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> <strong>WhatsApp</strong>
   `;
   waBtn.className = 'bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 inline-flex items-center';
   waBtn.onclick = () => {
-    const url = window.location.href.split('#')[0] + '#p' + i;
+    const url = window.location.href.split('#')[0] ;
     //const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`;
     const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
     window.open(waShare, '_blank');
   };
   botonesDiv.appendChild(waBtn);
+
+  const fbBtn = document.createElement('button');
+  fbBtn.innerHTML = `
+      <i class="fab fa-facebook-f" style="margin-right: 8px;"></i> <strong>Facebook</strong>
+    `;
+  fbBtn.className = 'bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-800 inline-flex items-center';
+  fbBtn.onclick = () => {
+    const url = window.location.href.split('#')[0];
+    const texto = generarTextoArgumento(p, i);
+      //const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(texto)}`;
+    window.open(fbShare, '_blank', 'width=600,height=400');
+  };
+  botonesDiv.appendChild(fbBtn);
 
   const tgBtn = document.createElement('button');
   tgBtn.innerHTML = `
@@ -164,9 +139,15 @@ if (p.video) {
   `;
   tgBtn.className = 'bg-sky-500 text-white px-2 py-1 rounded hover:bg-sky-600 inline-flex items-center';
   tgBtn.onclick = () => {
-    const url = window.location.href.split('#')[0] + '#p' + i;
+    const url = window.location.href.split('#')[0];
     //const tgShare = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
-    const tgShare = `https://t.me/share/url?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
+    //const tgShare = `https://t.me/share/url?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
+
+    const texto = generarTextoArgumento(p, i);
+
+    const tgShare = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texto)}`;
+
+
     window.open(tgShare, '_blank');
   };
   botonesDiv.appendChild(tgBtn);
@@ -177,9 +158,11 @@ if (p.video) {
   `;
   msBtn.className = 'bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 inline-flex items-center';
   msBtn.onclick = () => {
-    const url = window.location.href.split('#')[0] + '#p' + i;
+    const url = window.location.href.split('#')[0];
+    const texto = generarTextoArgumento(p, i);
     // const msShare = `fb-messenger://share?link=${encodeURIComponent(url)}`;
-    const msShare = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(window.location.href)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(window.location.href)}`;
+    //const msShare = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(window.location.href)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(window.location.href)}`;
+    const msShare = `https://www.facebook.com/dialog/send?app_id=TU_APP_ID&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(url)}`;
     window.open(msShare, '_blank');
   };
   botonesDiv.appendChild(msBtn);
@@ -190,7 +173,7 @@ if (p.video) {
   `;
   twBtn.className = 'bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700 inline-flex items-center'; // Fondo gris y texto blanco
   twBtn.onclick = () => {
-    const url = window.location.href.split('#')[0] + '#p' + i;
+    const url = window.location.href.split('#')[0];
     //const twShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     const twShare = `https://twitter.com/intent/tweet?text=${encodeURIComponent(generarTextoArgumento(p, i))}`;
     window.open(twShare, '_blank');
