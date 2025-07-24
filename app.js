@@ -54,7 +54,8 @@ function generarTextoArgumento(p, i) {
   const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
 
   const url = window.location.href.split('#')[0];
-  return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n🔗Directorio de preguntas:\n ${url}#p${i}`;
+  //return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n🔗Directorio de preguntas:\n ${url}#p${i}`;
+  return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n🔗Directorio de preguntas:\n ${url}`;
 }
 
 
