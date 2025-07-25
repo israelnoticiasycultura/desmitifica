@@ -60,21 +60,79 @@ function generarTextoArgumento(p, i) {
 
 
 // Si hay video, mostrar enlace y botón "Copiar todo"
+// if (p.video) {
+//   const videoWrapper = document.createElement('div');
+//   videoWrapper.className = 'flex items-center gap-3 mt-2'; // Alinea elementos en fila y agrega espacio entre ellos
+
+//   const videoLink = document.createElement('a');
+//   videoLink.href = p.video;
+//   videoLink.target = '_blank';
+//   videoLink.textContent = '📺 Ver video';
+//   videoLink.className = 'text-blue-600 hover:underline';
+
+//   // Crear botón "Copiar todo"
+//   const copiarTodoBtn = document.createElement('button');
+//   copiarTodoBtn.textContent = '📋 Copiar argumento';
+//   copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700';
+
+
+//   copiarTodoBtn.onclick = () => {
+//     const texto = generarTextoArgumento(p, i);
+//     navigator.clipboard.writeText(texto);
+//     alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
+//   };
+
+//   // Crear un contenedor para los botones
+//   const botonesContainer = document.createElement('div');
+//   botonesContainer.className = 'flex space-x-2'; // "flex" para alinearlos horizontalmente, "space-x-2" para el espacio entre ellos
+//   // botonesContainer.appendChild(copyBtn);
+//   botonesContainer.appendChild(copiarTodoBtn);
+
+//   // Añadir el enlace y los botones al contenedor
+//   videoWrapper.appendChild(videoLink);
+//   videoWrapper.appendChild(botonesContainer);
+
+//   // Agregar todo al contenedor principal
+//   div.appendChild(videoWrapper);
+// }
+
+// Extraer ID del video de YouTube
+function obtenerIdYoutube(url) {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^\s&]+)/);
+  return match ? match[1] : null;
+}
+
 if (p.video) {
   const videoWrapper = document.createElement('div');
-  videoWrapper.className = 'flex items-center gap-3 mt-2'; // Alinea elementos en fila y agrega espacio entre ellos
+  // videoWrapper.className = 'flex items-center gap-3 mt-2';
+  videoWrapper.className = 'flex items-center gap-2 mt-2 flex-wrap';
 
-  const videoLink = document.createElement('a');
-  videoLink.href = p.video;
-  videoLink.target = '_blank';
-  videoLink.textContent = '📺 Ver video';
-  videoLink.className = 'text-blue-600 hover:underline';
 
-  // Crear botón "Copiar todo"
+  // Reemplazar por este nuevo bloque:
+  const videoId = obtenerIdYoutube(p.video);
+  if (videoId) {
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    iframe.width = '200';
+    iframe.height = '113';
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    videoWrapper.appendChild(iframe);
+  } else {
+    const videoLink = document.createElement('a');
+    videoLink.href = p.video;
+    videoLink.target = '_blank';
+    videoLink.textContent = '📺 Ver video';
+    videoLink.className = 'text-blue-600 hover:underline';
+    videoWrapper.appendChild(videoLink);
+  }
+
+  // Botón copiar argumento (como ya tienes)
   const copiarTodoBtn = document.createElement('button');
   copiarTodoBtn.textContent = '📋 Copiar argumento';
-  copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700';
-
+  // copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700';
+  copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-sm';
 
   copiarTodoBtn.onclick = () => {
     const texto = generarTextoArgumento(p, i);
@@ -82,19 +140,14 @@ if (p.video) {
     alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
   };
 
-  // Crear un contenedor para los botones
   const botonesContainer = document.createElement('div');
-  botonesContainer.className = 'flex space-x-2'; // "flex" para alinearlos horizontalmente, "space-x-2" para el espacio entre ellos
-  // botonesContainer.appendChild(copyBtn);
+  botonesContainer.className = 'flex space-x-2';
   botonesContainer.appendChild(copiarTodoBtn);
-
-  // Añadir el enlace y los botones al contenedor
-  videoWrapper.appendChild(videoLink);
   videoWrapper.appendChild(botonesContainer);
 
-  // Agregar todo al contenedor principal
   div.appendChild(videoWrapper);
 }
+
 
 
     // Contenedor botones compartir y copiar link
