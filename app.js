@@ -9,6 +9,9 @@ function ordenarPreguntasAleatoriamente(preguntas) {
 async function cargarPreguntas() {
   const res = await fetch('preguntas.json');
   preguntas = await res.json();
+
+  preguntas.forEach((p, i) => p.indiceOriginal = i + 1);
+
   preguntas = ordenarPreguntasAleatoriamente(preguntas);
 
   fuse = new Fuse(preguntas, {
@@ -17,7 +20,15 @@ async function cargarPreguntas() {
   });
 
   mostrarPreguntas(preguntas);
+
+  // Esperar un poco más para que el DOM se actualice antes de hacer scroll
+  setTimeout(() => {
+    scrollSiHayHash();
+  }, 1000); // 100 ms es suficiente, puedes probar con menos o más
 }
+
+
+
 
 function mostrarPreguntas(lista) {
   const contenedor = document.getElementById('preguntas-container');
@@ -26,7 +37,7 @@ function mostrarPreguntas(lista) {
   lista.forEach((p, i) => {
     const div = document.createElement('div');
     div.className = 'bg-white p-4 rounded shadow';
-    div.id = 'p' + i;
+    div.id = 'p' + p.indiceOriginal;
 
     const titulo = document.createElement('h3');
     titulo.className = 'text-lg font-semibold mb-2';
@@ -47,7 +58,8 @@ function mostrarPreguntas(lista) {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = html;
       const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
-      const url = window.location.href.split('#')[0];
+      // const url = window.location.href.split('#')[0];
+      const url = window.location.href.split('#')[0] + '#'+ p.indiceOriginal;
       return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n🔗Directorio de preguntas:\n ${url}`;
     }
 
@@ -75,7 +87,8 @@ function mostrarPreguntas(lista) {
         clase: 'bg-blue-600 hover:bg-blue-700',
         icono: 'fab fa-facebook-messenger',
         url: (texto) => {
-          const url = window.location.href;
+          // const url = window.location.href;
+          const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
           return `https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(url)}`;
         }
       },
@@ -83,7 +96,8 @@ function mostrarPreguntas(lista) {
         clase: 'bg-blue-700 hover:bg-blue-800',
         icono: 'fab fa-facebook-f',
         url: () => {
-          const url = window.location.href.split('#')[0];
+          // const url = window.location.href.split('#')[0];
+          const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
           return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
         }
       }
@@ -172,6 +186,32 @@ function mostrarPreguntas(lista) {
     contenedor.appendChild(div);
   });
 }
+
+function scrollSiHayHash() {
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#')) {
+    const id = hash.substring(1);
+    const el = document.getElementById('p' + id);
+    if (el) {
+      // Scroll al elemento
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Luego ajustamos un poco el scroll hacia arriba para que se vea el título
+      // Esperamos que el scrollIntoView termine con un pequeño timeout
+      setTimeout(() => {
+        window.scrollBy({ top: -50, behavior: 'smooth' }); // ajusta -50 según necesites
+      }, 300);
+
+      // Resaltar brevemente el elemento
+      el.classList.add('ring', 'ring-yellow-400', 'ring-4');
+      setTimeout(() => {
+        el.classList.remove('ring', 'ring-yellow-400', 'ring-4');
+      }, 3000);
+    }
+  }
+}
+
+
 
 function obtenerIdYoutube(url) {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^\s&]+)/);
