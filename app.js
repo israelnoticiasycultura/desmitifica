@@ -100,45 +100,66 @@ function mostrarPreguntas(lista) {
     div.appendChild(botonesDiv);
 
     if (p.video) {
-  const videoWrapper = document.createElement('div');
-  videoWrapper.className = 'mt-2 flex items-center justify-center gap-4';
+      const videoWrapper = document.createElement('div');
+      videoWrapper.className = 'mt-2 flex items-center justify-center gap-4';
 
 
-  const videoId = obtenerIdYoutube(p.video);
-  if (videoId) {
-    const shortUrl = `https://youtu.be/${videoId}`;
-    const link = document.createElement('a');
-    link.href = shortUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
+      const videoId = obtenerIdYoutube(p.video);
+      
+      if (videoId) {
+        const shortUrl = `https://youtu.be/${videoId}`;
+        const link = document.createElement('a');
+        //link.href = shortUrl;
+        link.href = p.video;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
 
-    const thumb = document.createElement('img');
-    thumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-    thumb.alt = 'Miniatura del video';
-    thumb.className = 'w-[280px] h-[158px] object-cover rounded shadow';
-    link.appendChild(thumb);
-    videoWrapper.appendChild(link);
-  } else {
-    const videoLink = document.createElement('a');
-    videoLink.href = p.video;
-    videoLink.target = '_blank';
-    videoLink.textContent = '📺 Ver video';
-    videoLink.className = 'text-blue-600 hover:underline';
-    videoWrapper.appendChild(videoLink);
-  }
+        const contenedorMiniatura = document.createElement('div');
+        contenedorMiniatura.className = 'relative w-[280px] h-[158px] cursor-pointer';
 
-  // Crear botón copiar junto a la miniatura
-  const copiarTodoBtn = document.createElement('button');
-  copiarTodoBtn.textContent = '📋 Copiar';
-  copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-sm whitespace-nowrap';
-  copiarTodoBtn.onclick = () => {
-    const texto = generarTextoArgumento(p, i);
-    navigator.clipboard.writeText(texto);
-    alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
-  };
-  videoWrapper.appendChild(copiarTodoBtn);
+        const thumb = document.createElement('img');
+        thumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        thumb.alt = 'Miniatura del video';
+        thumb.className = 'w-full h-full object-cover rounded shadow';
 
-  div.appendChild(videoWrapper);
+        const iconoPlay = document.createElement('div');
+        iconoPlay.className = `
+          absolute inset-0 flex items-center justify-center pointer-events-none
+        `;
+        iconoPlay.innerHTML = `
+          <div class="bg-black/60 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg">
+            <i class="fas fa-play text-xl"></i>
+          </div>
+        `;
+
+
+        contenedorMiniatura.appendChild(thumb);
+        contenedorMiniatura.appendChild(iconoPlay);
+
+        link.appendChild(contenedorMiniatura);
+
+        videoWrapper.appendChild(link);
+      } else {
+        const videoLink = document.createElement('a');
+        videoLink.href = p.video;
+        videoLink.target = '_blank';
+        videoLink.textContent = '📺 Ver video';
+        videoLink.className = 'text-blue-600 hover:underline';
+        videoWrapper.appendChild(videoLink);
+      }
+
+      // Crear botón copiar junto a la miniatura
+      const copiarTodoBtn = document.createElement('button');
+      copiarTodoBtn.textContent = '📋 Copiar';
+      copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-sm whitespace-nowrap';
+      copiarTodoBtn.onclick = () => {
+        const texto = generarTextoArgumento(p, i);
+        navigator.clipboard.writeText(texto);
+        alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
+      };
+      videoWrapper.appendChild(copiarTodoBtn);
+
+      div.appendChild(videoWrapper);
 }
 
 
