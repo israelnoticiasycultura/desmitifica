@@ -58,8 +58,8 @@ function mostrarPreguntas(lista) {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = html;
       const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
-      // const url = window.location.href.split('#')[0];
-      const url = window.location.href.split('#')[0] + '#'+ p.indiceOriginal;
+      const url = window.location.href.split('#')[0];
+      //const url = window.location.href.split('#')[0] + '#'+ p.indiceOriginal;
       return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n🔗Directorio de preguntas:\n ${url}`;
     }
 
