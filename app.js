@@ -60,7 +60,7 @@ function mostrarPreguntas(lista) {
       const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
       const url = window.location.href.split('#')[0];
       //const url = window.location.href.split('#')[0] + '#'+ p.indiceOriginal;
-      return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n📘 Respuestas a tus preguntas sobre Israel:\n ${url}`;
+      return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n📘 Respuestas a las mentiras sobre Israel:\n ${url}`;
     }
 
     // Compartir botones
