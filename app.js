@@ -45,11 +45,11 @@ function mostrarPreguntas(lista) {
     div.appendChild(titulo);
 
     const botonesDiv = document.createElement('div');
-    botonesDiv.className = 'mt-2 mb-3 flex flex-wrap gap-2 items-center justify-start';
+    botonesDiv.className = 'mt-2 mb-3 flex items-center justify-center gap-4 w-full';
 
     const compartirTexto = document.createElement('span');
     compartirTexto.innerHTML = '<strong>Compártelo:</strong>';
-    compartirTexto.className = 'text-sm text-gray-700 ml-2';
+    compartirTexto.className = 'text-base text-gray-700';
     botonesDiv.appendChild(compartirTexto);
 
     // Función para generar texto
@@ -106,7 +106,7 @@ function mostrarPreguntas(lista) {
     redes.forEach(r => {
       const btn = document.createElement('button');
       btn.innerHTML = `<i class="${r.icono}"></i>`;
-      btn.className = `${r.clase} text-white px-2 py-1 rounded inline-flex items-center justify-center text-sm`;
+      btn.className = `${r.clase} text-white px-3 py-2 rounded inline-flex items-center justify-center text-base`;
       btn.onclick = () => window.open(r.url(generarTextoArgumento(p, i)), '_blank');
       botonesDiv.appendChild(btn);
     });
