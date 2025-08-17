@@ -48,7 +48,7 @@ function mostrarPreguntas(lista) {
     botonesDiv.className = 'mt-2 mb-3 flex items-center justify-center gap-4 w-full';
 
     const compartirTexto = document.createElement('span');
-    compartirTexto.innerHTML = '<strong>Compártelo:</strong>';
+    compartirTexto.innerHTML = '<strong>Compartir:</strong>';
     compartirTexto.className = 'text-base text-gray-700';
     botonesDiv.appendChild(compartirTexto);
 
