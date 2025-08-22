@@ -24,11 +24,8 @@ async function cargarPreguntas() {
   // Esperar un poco más para que el DOM se actualice antes de hacer scroll
   setTimeout(() => {
     scrollSiHayHash();
-  }, 1000); // 100 ms es suficiente, puedes probar con menos o más
+  }, 1000);
 }
-
-
-
 
 function mostrarPreguntas(lista) {
   const contenedor = document.getElementById('preguntas-container');
@@ -52,18 +49,15 @@ function mostrarPreguntas(lista) {
     compartirTexto.className = 'text-base text-gray-700';
     botonesDiv.appendChild(compartirTexto);
 
-    // Función para generar texto
     function generarTextoArgumento(p, i) {
       const html = marked.parse(p.respuesta);
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = html;
       const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
       const url = window.location.href.split('#')[0];
-      //const url = window.location.href.split('#')[0] + '#'+ p.indiceOriginal;
       return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n📘 Respuestas a las mentiras sobre Israel:\n ${url}`;
     }
 
-    // Compartir botones
     const redes = [
       {
         clase: 'bg-green-500 hover:bg-green-600',
@@ -87,7 +81,6 @@ function mostrarPreguntas(lista) {
         clase: 'bg-blue-600 hover:bg-blue-700',
         icono: 'fab fa-facebook-messenger',
         url: (texto) => {
-          // const url = window.location.href;
           const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
           return `https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(url)}`;
         }
@@ -96,7 +89,6 @@ function mostrarPreguntas(lista) {
         clase: 'bg-blue-700 hover:bg-blue-800',
         icono: 'fab fa-facebook-f',
         url: () => {
-          // const url = window.location.href.split('#')[0];
           const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
           return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
         }
@@ -107,7 +99,10 @@ function mostrarPreguntas(lista) {
       const btn = document.createElement('button');
       btn.innerHTML = `<i class="${r.icono}"></i>`;
       btn.className = `${r.clase} text-white px-3 py-2 rounded inline-flex items-center justify-center text-base`;
-      btn.onclick = () => window.open(r.url(generarTextoArgumento(p, i)), '_blank');
+      btn.onclick = () => {
+        window.open(r.url(generarTextoArgumento(p, i)), '_blank');
+        incrementarContadorV1();
+      };
       botonesDiv.appendChild(btn);
     });
 
@@ -117,13 +112,10 @@ function mostrarPreguntas(lista) {
       const videoWrapper = document.createElement('div');
       videoWrapper.className = 'mt-2 flex items-center justify-center gap-4';
 
-
       const videoId = obtenerIdYoutube(p.video);
       
       if (videoId) {
-        const shortUrl = `https://youtu.be/${videoId}`;
         const link = document.createElement('a');
-        //link.href = shortUrl;
         link.href = p.video;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
@@ -137,21 +129,15 @@ function mostrarPreguntas(lista) {
         thumb.className = 'w-full h-full object-cover rounded shadow';
 
         const iconoPlay = document.createElement('div');
-        iconoPlay.className = `
-          absolute inset-0 flex items-center justify-center pointer-events-none
-        `;
-        iconoPlay.innerHTML = `
-          <div class="bg-black/60 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg">
+        iconoPlay.className = `absolute inset-0 flex items-center justify-center pointer-events-none`;
+        iconoPlay.innerHTML = `<div class="bg-black/60 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg">
             <i class="fas fa-play text-xl"></i>
-          </div>
-        `;
-
+          </div>`;
 
         contenedorMiniatura.appendChild(thumb);
         contenedorMiniatura.appendChild(iconoPlay);
 
         link.appendChild(contenedorMiniatura);
-
         videoWrapper.appendChild(link);
       } else {
         const videoLink = document.createElement('a');
@@ -162,7 +148,6 @@ function mostrarPreguntas(lista) {
         videoWrapper.appendChild(videoLink);
       }
 
-      // Crear botón copiar junto a la miniatura
       const copiarTodoBtn = document.createElement('button');
       copiarTodoBtn.textContent = '📋 Copiar';
       copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-sm whitespace-nowrap';
@@ -170,14 +155,13 @@ function mostrarPreguntas(lista) {
         const texto = generarTextoArgumento(p, i);
         navigator.clipboard.writeText(texto);
         alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
+        incrementarContadorV1();
       };
       videoWrapper.appendChild(copiarTodoBtn);
 
       div.appendChild(videoWrapper);
-}
+    }
 
-
-    // Respuesta en markdown
     const resp = document.createElement('p');
     resp.className = 'mt-3';
     resp.innerHTML = marked.parse(p.respuesta);
@@ -193,16 +177,10 @@ function scrollSiHayHash() {
     const id = hash.substring(1);
     const el = document.getElementById('p' + id);
     if (el) {
-      // Scroll al elemento
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      // Luego ajustamos un poco el scroll hacia arriba para que se vea el título
-      // Esperamos que el scrollIntoView termine con un pequeño timeout
       setTimeout(() => {
-        window.scrollBy({ top: -50, behavior: 'smooth' }); // ajusta -50 según necesites
+        window.scrollBy({ top: -50, behavior: 'smooth' });
       }, 300);
-
-      // Resaltar brevemente el elemento
       el.classList.add('ring', 'ring-yellow-400', 'ring-4');
       setTimeout(() => {
         el.classList.remove('ring', 'ring-yellow-400', 'ring-4');
@@ -211,14 +189,11 @@ function scrollSiHayHash() {
   }
 }
 
-
-
 function obtenerIdYoutube(url) {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^\s&]+)/);
   return match ? match[1] : null;
 }
 
-// Buscador
 document.getElementById('busqueda').addEventListener('input', e => {
   const texto = e.target.value.trim();
   if (texto.length > 1) {
@@ -229,5 +204,36 @@ document.getElementById('busqueda').addEventListener('input', e => {
   }
 });
 
-// Iniciar
+// ===========================
+// INTEGRACIÓN CON COUNTERAPI
+// ===========================
+const COUNTER_API_URL_V1 = "https://api.counterapi.dev/v1/desmitifica/compartir";
+
+async function obtenerContadorV1() {
+  try {
+    console.log("🔹 Llamando a CounterAPI v1...");
+    const res = await fetch(COUNTER_API_URL_V1 + "/");
+    console.log("🔹 Fetch completado:", res);
+    const data = await res.json();
+    console.log("🔹 Datos recibidos:", data);
+    document.getElementById('contador-global').textContent =
+  ` La verdad ha sido compartida ${data.count}. ¡Ayuda a difundirla!`;
+  } catch (error) {
+    console.error("Error al obtener contador:", error);
+  }
+}
+
+
+async function incrementarContadorV1() {
+  try {
+    await fetch(COUNTER_API_URL_V1 + "/up"); // GET /up incrementa el contador
+    obtenerContadorV1();
+  } catch (error) {
+    console.error("Error al incrementar contador:", error);
+  }
+}
+
+// Llamamos al cargar la página
+obtenerContadorV1();
+
 cargarPreguntas();
