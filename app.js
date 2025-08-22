@@ -217,7 +217,7 @@ async function obtenerContadorV1() {
     const data = await res.json();
     console.log("🔹 Datos recibidos:", data);
     document.getElementById('contador-global').textContent =
-  ` La verdad ha sido compartida ${data.count}. ¡Ayuda a difundirla!`;
+  `La verdad ha sido compartida ${data.count} veces. ¡Difúndela!`;
   } catch (error) {
     console.error("Error al obtener contador:", error);
   }
