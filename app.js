@@ -1,4 +1,51 @@
+// ===========================
+// TOAST PERSONALIZADO
+// ===========================
+const toast = document.createElement('div');
+toast.id = 'toast-alerta';
+toast.style.position = 'fixed';
+toast.style.bottom = '30px';
+toast.style.left = '50%';
+toast.style.transform = 'translateX(-50%)';
+toast.style.background = '#22c55e';
+toast.style.color = 'white';
+toast.style.padding = '12px 20px';
+toast.style.borderRadius = '10px';
+toast.style.boxShadow = '0 0 15px rgba(0,0,0,0.3)';
+toast.style.fontSize = '16px';
+toast.style.fontWeight = '500';
+toast.style.display = 'none';
+toast.style.zIndex = '9999';
+toast.style.opacity = '0';
+toast.style.transition = 'opacity 0.5s ease, bottom 0.5s ease';
+
+toast.style.whiteSpace = 'nowrap';
+toast.style.maxWidth = '90%';
+toast.innerHTML = '☑️ ¡Listo! Pégalo en tus redes.';
+document.body.appendChild(toast);
+
+
+let toastTimeout;
+function mostrarToast() {
+  clearTimeout(toastTimeout);
+  toast.style.display = 'block';
+  setTimeout(() => {
+    toast.style.opacity = '1';
+    toast.style.bottom = '50px';
+  }, 10);
+
+  toastTimeout = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.bottom = '30px';
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 500);
+  }, 2500); // Duración visible: 2.5 segundos
+}
+
+// ===========================
 // Cargar preguntas y preparar Fuse.js para búsqueda
+// ===========================
 let preguntas = [];
 let fuse;
 
@@ -21,7 +68,6 @@ async function cargarPreguntas() {
 
   mostrarPreguntas(preguntas);
 
-  // Esperar un poco más para que el DOM se actualice antes de hacer scroll
   setTimeout(() => {
     scrollSiHayHash();
   }, 1000);
@@ -55,7 +101,7 @@ function mostrarPreguntas(lista) {
       tempDiv.innerHTML = html;
       const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
       const url = window.location.href.split('#')[0];
-      return `🛑 ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n📘 Respuestas a las mentiras sobre Israel:\n ${url}`;
+      return `ℹ️ ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n📘 Respuestas a las mentiras sobre Israel:\n ${url}`;
     }
 
     const redes = [
@@ -154,7 +200,7 @@ function mostrarPreguntas(lista) {
       copiarTodoBtn.onclick = () => {
         const texto = generarTextoArgumento(p, i);
         navigator.clipboard.writeText(texto);
-        alert('¡Listo! Ahora puedes pegar el argumento en cualquier destino y difundir la verdad');
+        mostrarToast();
         incrementarContadorV1();
       };
       videoWrapper.appendChild(copiarTodoBtn);
@@ -223,17 +269,24 @@ async function obtenerContadorV1() {
   }
 }
 
-
 async function incrementarContadorV1() {
   try {
-    await fetch(COUNTER_API_URL_V1 + "/up"); // GET /up incrementa el contador
+    await fetch(COUNTER_API_URL_V1 + "/up");
     obtenerContadorV1();
   } catch (error) {
     console.error("Error al incrementar contador:", error);
   }
 }
 
-// Llamamos al cargar la página
+// Llamadas iniciales
 obtenerContadorV1();
-
 cargarPreguntas();
+
+// ===========================
+// BOTÓN SCROLL UP
+// ===========================
+const scrollUpBtn = document.getElementById('scrollUpBtn');
+
+scrollUpBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
