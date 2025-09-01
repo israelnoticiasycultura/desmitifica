@@ -257,11 +257,8 @@ const COUNTER_API_URL_V1 = "https://api.counterapi.dev/v1/desmitifica/compartir"
 
 async function obtenerContadorV1() {
   try {
-    console.log("🔹 Llamando a CounterAPI v1...");
     const res = await fetch(COUNTER_API_URL_V1 + "/");
-    console.log("🔹 Fetch completado:", res);
     const data = await res.json();
-    console.log("🔹 Datos recibidos:", data);
     document.getElementById('contador-global').textContent =
   `${data.count} verdades difundidas. ¡Ayuda a compartir!`;
   } catch (error) {
