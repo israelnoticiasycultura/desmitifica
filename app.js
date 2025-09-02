@@ -250,9 +250,7 @@ document.getElementById('busqueda').addEventListener('input', e => {
   }
 });
 
-// ===========================
-// INTEGRACIÓN CON COUNTERAPI
-// ===========================
+
 const COUNTER_API_URL_V1 = "https://api.counterapi.dev/v1/desmitifica/compartir";
 
 async function obtenerContadorV1() {
@@ -275,13 +273,9 @@ async function incrementarContadorV1() {
   }
 }
 
-// Llamadas iniciales
 obtenerContadorV1();
 cargarPreguntas();
 
-// ===========================
-// BOTÓN SCROLL UP
-// ===========================
 const scrollUpBtn = document.getElementById('scrollUpBtn');
 
 scrollUpBtn.addEventListener('click', () => {
