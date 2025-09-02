@@ -250,7 +250,6 @@ document.getElementById('busqueda').addEventListener('input', e => {
   }
 });
 
-
 const COUNTER_API_URL_V1 = "https://api.counterapi.dev/v1/desmitifica/compartir";
 
 async function obtenerContadorV1() {
