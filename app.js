@@ -100,7 +100,8 @@ function mostrarPreguntas(lista) {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = html;
       const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
-      const url = window.location.href.split('#')[0];
+      //const url = window.location.href.split('#')[0];
+      url = "tinyurl.com/desmitifica";
       return `ℹ️ ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n📘 Respuestas a las mentiras sobre Israel:\n ${url}`;
     }
 
@@ -114,7 +115,8 @@ function mostrarPreguntas(lista) {
         clase: 'bg-sky-500 hover:bg-sky-600',
         icono: 'fab fa-telegram-plane',
         url: (texto) => {
-          const url = window.location.href.split('#')[0];
+          //const url = window.location.href.split('#')[0];
+          url = "tinyurl.com/desmitifica";
           return `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texto)}`;
         }
       },
@@ -127,7 +129,8 @@ function mostrarPreguntas(lista) {
         clase: 'bg-blue-600 hover:bg-blue-700',
         icono: 'fab fa-facebook-messenger',
         url: (texto) => {
-          const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
+          //const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
+          url = "tinyurl.com/desmitifica";
           return `https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=TU_APP_ID&redirect_uri=${encodeURIComponent(url)}`;
         }
       },
@@ -135,7 +138,8 @@ function mostrarPreguntas(lista) {
         clase: 'bg-blue-700 hover:bg-blue-800',
         icono: 'fab fa-facebook-f',
         url: () => {
-          const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
+          //const url = window.location.href.split('#')[0] + '#' + p.indiceOriginal;
+          url = "tinyurl.com/desmitifica";
           return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
         }
       }
