@@ -284,3 +284,50 @@ const scrollUpBtn = document.getElementById('scrollUpBtn');
 scrollUpBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+
+// ===========================
+// Fijar buscador debajo de redes sociales
+// ===========================
+document.addEventListener("DOMContentLoaded", () => {
+  const buscador = document.getElementById("busqueda");
+  const header = document.querySelector("header");
+
+  function checkHeader() {
+    const rect = header.getBoundingClientRect();
+    if (rect.bottom <= 0) {
+      buscador.classList.add(
+        "fixed",
+        "top-[48px]",   // ajusta a tu barra gris
+        "left-1/2",
+        "-translate-x-1/2",
+        "z-40",
+        "bg-gray-50",
+        "shadow-md",
+        "w-[90%]",
+        "max-w-3xl",
+        "px-4"
+      );
+    } else {
+      buscador.classList.remove(
+        "fixed",
+        "top-[48px]",
+        "left-1/2",
+        "-translate-x-1/2",
+        "z-40",
+        "bg-gray-50",
+        "shadow-md",
+        "w-[90%]",
+        "max-w-3xl",
+        "px-4"
+      );
+    }
+  }
+
+  window.addEventListener("scroll", checkHeader);
+  window.addEventListener("keydown", checkHeader);
+  checkHeader();
+});
+
+
+
