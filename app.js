@@ -102,7 +102,7 @@ function mostrarPreguntas(lista) {
       const textoLimpio = tempDiv.textContent || tempDiv.innerText || "";
       //const url = window.location.href.split('#')[0];
       url = "tinyurl.com/desmitifica";
-      return `ℹ️ ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n📘 Respuestas a las mentiras sobre Israel:\n ${url}`;
+      return `ℹ️ ${p.titulo}\n${textoLimpio}\n📺 Video ilustrativo:\n${p.video}\n\n🚀 Comparte la verdad 👉 ${url}`;
     }
 
     const redes = [
