@@ -151,7 +151,7 @@ function mostrarPreguntas(lista) {
       btn.className = `${r.clase} text-white px-3 py-2 rounded inline-flex items-center justify-center text-base`;
       btn.onclick = () => {
         window.open(r.url(generarTextoArgumento(p, i)), '_blank');
-        incrementarContadorV1();
+        incrementarContador();
       };
       botonesDiv.appendChild(btn);
     });
@@ -201,11 +201,22 @@ function mostrarPreguntas(lista) {
       const copiarTodoBtn = document.createElement('button');
       copiarTodoBtn.textContent = '📋 Copiar';
       copiarTodoBtn.className = 'bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-sm whitespace-nowrap';
-      copiarTodoBtn.onclick = () => {
+      copiarTodoBtn.onclick = async () => {
         const texto = generarTextoArgumento(p, i);
-        navigator.clipboard.writeText(texto);
-        mostrarToast();
-        incrementarContadorV1();
+
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          try {
+            await navigator.clipboard.writeText(texto);
+            mostrarToast();
+          } catch (clipboardError) {
+            console.error('Error al copiar al portapapeles:', clipboardError);
+            fallbackCopyText(texto);
+          }
+        } else {
+          fallbackCopyText(texto);
+        }
+
+        incrementarContador();
       };
       videoWrapper.appendChild(copiarTodoBtn);
 
@@ -239,6 +250,26 @@ function scrollSiHayHash() {
   }
 }
 
+function fallbackCopyText(texto) {
+  const textarea = document.createElement('textarea');
+  textarea.value = texto;
+  textarea.style.position = 'fixed';
+  textarea.style.top = '-9999px';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand('copy');
+    mostrarToast();
+  } catch (copyError) {
+    console.error('Error en fallback de copiado:', copyError);
+  }
+
+  document.body.removeChild(textarea);
+}
+
 function obtenerIdYoutube(url) {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^\s&]+)/);
   return match ? match[1] : null;
@@ -254,29 +285,45 @@ document.getElementById('busqueda').addEventListener('input', e => {
   }
 });
 
-const COUNTER_API_URL_V1 = "https://api.counterapi.dev/v1/desmitifica/compartir";
+const WORKER_URL = "https://inc.salva1uno1.workers.dev";
 
-async function obtenerContadorV1() {
+async function obtenerContador() {
   try {
-    const res = await fetch(COUNTER_API_URL_V1 + "/");
+    const res = await fetch(WORKER_URL);
+
+    if (!res.ok) {
+      const body = await res.text();
+      throw new Error(`HTTP ${res.status} ${res.statusText}: ${body}`);
+    }
+
     const data = await res.json();
+    const count = data.clicks ?? 1000;
+
     document.getElementById('contador-global').textContent =
-  `${data.count} verdades difundidas. ¡Ayuda a compartir!`;
+      `${count} verdades difundidas. ¡Ayuda a compartir!`;
   } catch (error) {
     console.error("Error al obtener contador:", error);
+    document.getElementById('contador-global').textContent =
+      "¡Ayuda a compartir!";
   }
 }
 
-async function incrementarContadorV1() {
+async function incrementarContador() {
   try {
-    await fetch(COUNTER_API_URL_V1 + "/up");
-    obtenerContadorV1();
+    const res = await fetch(WORKER_URL, { method: "POST" });
+
+    if (!res.ok) {
+      const body = await res.text();
+      throw new Error(`HTTP ${res.status} ${res.statusText}: ${body}`);
+    }
+    
+    await obtenerContador();
   } catch (error) {
     console.error("Error al incrementar contador:", error);
   }
 }
 
-obtenerContadorV1();
+obtenerContador();
 cargarPreguntas();
 
 const scrollUpBtn = document.getElementById('scrollUpBtn');
